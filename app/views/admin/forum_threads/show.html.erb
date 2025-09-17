@@ -1,0 +1,19 @@
+<h1>Thread #<%= @thread.id %></h1>
+
+<p><strong>Title:</strong> <%= @thread.title %></p>
+<p><strong>Summary:</strong> <%= @thread.summary %></p>
+<p><strong>User:</strong> <%= @thread.user&.name || @thread.user&.email %></p>
+<p><strong>Category:</strong> <%= @thread.category&.slug %></p>
+<p><strong>Created:</strong> <%= @thread.created_at&.strftime("%Y-%m-%d %H:%M:%S") %></p>
+
+<h3>Meta</h3>
+<pre><%= JSON.pretty_generate(@thread.meta || {}) %></pre>
+
+<h3>Content</h3>
+<% if @thread.content_json.is_a?(String) %>
+  <pre><%= @thread.content_json %></pre>
+<% else %>
+  <pre><%= JSON.pretty_generate(@thread.content_json || {}) %></pre>
+<% end %>
+
+<p><%= link_to "Back", admin_forum_threads_path %></p>
